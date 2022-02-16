@@ -16,8 +16,16 @@ jobs:
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
       - name: setup NuGets
-        uses: NuGet/setup-nuget@v1.0.5
+        uses: NuGet/setup-nuget@v1.0.5 
+    
+      - name: Setup VSTest Path
+        uses: darenm/Setup-VSTest@v1
+        
       - name: restore nuget package
         run: nuget restore Ahorcado.sln
+        
       - name: Build the Solution
         run: msbuild Ahorcado.sln
+        
+      - name: Run Tests
+        run: vstest.console.exe .\tests\UnitTesting\bin\Release\Ahorcado.dll
